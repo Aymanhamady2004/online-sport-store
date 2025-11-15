@@ -1,9 +1,8 @@
-// script.js - مسؤول عن الواجهات وLocalStorage
-// يعتمد على products (products.js)
+
 
 const CART_KEY = "sport_store_cart_v1";
 
-/* ---------- Utility functions ---------- */
+
 
 function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -189,7 +188,7 @@ function renderCartPage() {
     </div>
   `;
 
-  // attach events
+  
   document.querySelectorAll(".qty-increase").forEach(b => b.addEventListener("click", () => {
     const id = Number(b.dataset.id);
     changeQty(id, 1);
@@ -205,12 +204,12 @@ function renderCartPage() {
     showToast("تم الحذف من السلة");
   }));
 
-  // enable checkout
+ 
   const checkoutBtn = document.getElementById("checkout-btn");
   if (checkoutBtn) checkoutBtn.classList.remove("disabled");
 }
 
-/* ---------- Checkout page ---------- */
+
 
 function renderCheckoutPage() {
   const summaryEl = document.getElementById("order-summary");
@@ -231,7 +230,7 @@ function renderCheckoutPage() {
   }, 0);
   summaryEl.innerHTML = `<div>${lines}<hr><div>المجموع: <strong>${formatPrice(total)} EGP</strong></div></div>`;
 
-  // form submit
+  
   const form = document.getElementById("checkout-form");
   if (!form) return;
   form.addEventListener("submit", (e) => {
@@ -247,23 +246,21 @@ function renderCheckoutPage() {
       total: total,
       createdAt: new Date().toISOString()
     };
-    // Simulate order processing: حفظ في localStorage تحت مفتاح orders
+  
     const orders = JSON.parse(localStorage.getItem("sport_store_orders_v1") || "[]");
     orders.push(order);
     localStorage.setItem("sport_store_orders_v1", JSON.stringify(orders));
 
-    // تفريغ السلة
     saveCart([]);
 
-    // احفظ رسالة للصفحة التالية للعرض
     localStorage.setItem("sport_store_last_order_v1", JSON.stringify(order));
 
-    // اذهب لصفحة الشكر
+
     window.location.href = "thanks.html";
   });
 }
 
-/* ---------- Thanks page ---------- */
+
 
 function renderThanksPage() {
   const el = document.getElementById("thanks-msg");
@@ -274,11 +271,8 @@ function renderThanksPage() {
     return;
   }
   el.innerHTML = `طلبك رقم <strong>${escapeHtml(order.id)}</strong> بمجموع <strong>${formatPrice(order.total)} EGP</strong>. تم إرسال تفاصيل الطلب إلى ${escapeHtml(order.email)} (تجريبي).`;
-  // remove last order if you want:
-  // localStorage.removeItem("sport_store_last_order_v1");
-}
+ 
 
-/* ---------- Cart manipulation ---------- */
 
 function addToCart(productId, quantity = 1) {
   const cart = loadCart();
@@ -308,7 +302,7 @@ function removeFromCart(productId) {
   saveCart(cart);
 }
 
-/* ---------- Helpers ---------- */
+
 
 function formatPrice(n) {
   return new Intl.NumberFormat('ar-EG').format(n);
@@ -328,7 +322,6 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
-/* ---------- Small toast ---------- */
 
 function showToast(text, ms = 1500) {
   if (!text) return;
@@ -350,22 +343,21 @@ function showToast(text, ms = 1500) {
   }, ms);
 }
 
-/* ---------- Small DOM wiring at load ---------- */
+
 
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();
 
-  // index page controls
   const searchInput = document.getElementById("search-input");
   const categoryFilter = document.getElementById("category-filter");
   const sortFilter = document.getElementById("sort-filter");
   const clearFilters = document.getElementById("clear-filters");
 
   if (searchInput || document.getElementById("products-grid")) {
-    // initial render
+  
     renderProductsGrid({});
 
-    // events
+  
     if (searchInput) {
       searchInput.addEventListener("input", () => renderProductsGrid({
         q: searchInput.value,
@@ -391,23 +383,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // product detail
   if (document.getElementById("product-detail")) {
     renderProductDetail();
   }
 
-  // cart page
   if (document.getElementById("cart-content")) {
     renderCartPage();
   }
 
-  // checkout page
   if (document.getElementById("checkout-form")) {
     renderCheckoutPage();
   }
 
-  // thanks page
+ 
   if (document.getElementById("thanks-msg")) {
     renderThanksPage();
   }
 });
+
