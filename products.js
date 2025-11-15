@@ -1,5 +1,4 @@
-// products.js
-// مصفوفة المنتجات - تقدر تعدل أو تضيف منتجات هنا
+
 const products = [
   {
     id: 1,
@@ -52,3 +51,4 @@ const products = [
     colors: ["أسود","زهري"]
   }
 ];
+
