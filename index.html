@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>متجر الرياضة - الرئيسية</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="products.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <div class="brand">
+        <a href="index.html">🏋‍♂ <span>Sport Store</span></a>
+      </div>
+      <div class="search-wrap">
+        <input id="search-input" type="search" placeholder="ابحث عن منتج، فئة، أو ماركة..." />
+      </div>
+      <nav>
+        <a href="cart.html" class="cart-link">🛒 <span id="cart-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="filters">
+      <select id="category-filter">
+        <option value="">كل الفئات</option>
+        <option value="أحذية">أحذية</option>
+        <option value="ملابس">ملابس</option>
+        <option value="معدات">معدات</option>
+      </select>
+
+      <select id="sort-filter">
+        <option value="new">الأحدث</option>
+        <option value="price-asc">الأرخص</option>
+        <option value="price-desc">الأغلى</option>
+      </select>
+
+      <button id="clear-filters" class="btn">مسح الفلاتر</button>
+    </section>
+
+    <section id="products-grid" class="products-grid"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© Sport Store — متجر رياضي تجريبي من دون باكند</div>
+  </footer>
+</body>
+</html>
